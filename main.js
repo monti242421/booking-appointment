@@ -40,6 +40,39 @@ li.appendChild(editBtn);
 items.appendChild(li);
 }
 
+function showDataToScreen(data){
+    var Name = data.Name;
+    var Email = data.Email;
+    var PhoneNumber = data.PhoneNumber;
+    var li =document.createElement("li");
+    li.className="list-group-item";
+    li.id=key;
+    li.appendChild(document.createTextNode(Name +"-"+Email+"-"+PhoneNumber  ));
+    var deletebtn = document.createElement("button");
+    deletebtn.className="btn btn-danger btn-sm btn-space delete";
+    deletebtn.appendChild(document.createTextNode("Del"));
+
+    var editBtn = document.createElement("button");
+    editBtn.className="btn btn-primary btn-sm btn-space  edit ";
+    editBtn.appendChild(document.createTextNode("Edit"));
+
+    li.appendChild(deletebtn);
+    li.appendChild(editBtn);
+    items.appendChild(li);
+}
+window.addEventListener("DOMContentLoaded",()=>{
+    axios.get("https://crudcrud.com/api/2c3bf3fea33c4aa385b87db9cd4d1517/appointmentapp")
+    .then((res)=>{
+        console.log(res.data)
+        for( var i=0;i<res.data.length;i++){
+            showDataToScreen(res.data[i]);
+        }
+    
+    }).catch(err=>console.log(err));
+
+
+})
+
 function removeItem(e){
     if(e.target.classList.contains("delete")){
         var li = e.target.parentElement;
